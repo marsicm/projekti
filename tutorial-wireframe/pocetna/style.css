@@ -1,0 +1,36 @@
+/* ====================================================
+   MOJA STRANICA — Ovdje pišeš CSS (Sati 2, 3 i 4)
+   ==================================================== */
+
+/* SAT 2, Korak 2.1 — CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+
+/* SAT 2, Korak 2.2 — Navigacija (Grid) */
+
+
+/* SAT 2, Korak 2.3 — Nav linkovi (Flexbox) */
+
+
+/* SAT 3, Korak 3.1 — Hero sekcija (Flexbox) */
+
+
+/* SAT 3, Korak 3.2 — Usluge i kartice (Grid) */
+
+
+/* SAT 4, Korak 4.1 — Recenzije (Grid) */
+
+
+/* SAT 4, Korak 4.2 — O nama (Grid) */
+
+
+/* SAT 4, Korak 4.3 — Footer (Flexbox) */

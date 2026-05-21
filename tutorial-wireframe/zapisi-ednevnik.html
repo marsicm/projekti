@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zapisi jedinica — E-dnevnik</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 13px;
+            color: #222;
+            background: #e8e8e8;
+            padding: 30px 20px;
+        }
+
+        .stranica {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px 55px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Zaglavlje */
+        .doc-header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 18px;
+            margin-bottom: 28px;
+        }
+        .doc-header h1 {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .doc-header p { font-size: 12px; color: #555; }
+
+        /* Metapodaci */
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 30px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 14px 18px;
+            margin-bottom: 30px;
+            font-size: 12px;
+        }
+        .meta-grid span { color: #555; }
+        .meta-grid strong { color: #222; }
+
+        /* Zapis jedinice */
+        .zapis {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+
+        .zapis-header {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            background: #f0f0f0;
+            border-bottom: 1px solid #ccc;
+            border-radius: 4px 4px 0 0;
+        }
+        .sat-oznaka {
+            background: #333;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 3px;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+        .zapis-naslov {
+            font-size: 13px;
+            font-weight: 700;
+            color: #111;
+        }
+        .zapis-trajanje {
+            font-size: 11px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .zapis-body {
+            padding: 14px 16px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .polje {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 6px;
+            font-size: 12px;
+            align-items: start;
+        }
+        .polje-naziv {
+            color: #555;
+            font-weight: 600;
+            padding-top: 1px;
+        }
+        .polje-vrijednost {
+            color: #222;
+            line-height: 1.55;
+        }
+
+        .ishodi-lista {
+            list-style: none;
+            padding: 0;
+        }
+        .ishodi-lista li {
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 3px;
+            line-height: 1.5;
+        }
+        .ishodi-lista li::before {
+            content: "–";
+            position: absolute;
+            left: 0;
+            color: #888;
+        }
+
+        /* Ukupni pregled */
+        .pregled {
+            margin-top: 30px;
+            border-top: 2px solid #333;
+            padding-top: 20px;
+        }
+        .pregled h2 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            color: #333;
+        }
+        .pregled-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-size: 11.5px;
+        }
+        .pregled-stavka {
+            background: #f8f8f8;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 10px 12px;
+        }
+        .pregled-stavka .p-broj {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+        .pregled-stavka .p-opis { color: #666; font-size: 11px; }
+
+        /* Potpis */
+        .potpis {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            font-size: 12px;
+            color: #555;
+        }
+        .potpis-polje {
+            border-top: 1px solid #aaa;
+            padding-top: 6px;
+            text-align: center;
+        }
+
+        /* Print stilovi */
+        @media print {
+            body { background: white; padding: 0; }
+            .stranica { box-shadow: none; padding: 20px 25px; max-width: 100%; }
+            .zapis { page-break-inside: avoid; }
+            .no-print { display: none; }
+        }
+
+        /* Gumb za ispis */
+        .print-btn {
+            display: block;
+            max-width: 800px;
+            margin: 0 auto 15px;
+            text-align: right;
+        }
+        .print-btn button {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 9px 22px;
+            font-size: 13px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .print-btn button:hover { background: #555; }
+    </style>
+</head>
+<body>
+
+<div class="print-btn no-print">
+    <button onclick="window.print()">&#128438; Ispiši / Spremi kao PDF</button>
+</div>
+
+<div class="stranica">
+
+    <div class="doc-header">
+        <h1>Zapisi nastavnih jedinica &mdash; E-dnevnik</h1>
+        <p>Predmet: Informatika &nbsp;&bull;&nbsp; Tematska cjelina: Kreiranje web stranice po wireframe-u</p>
+    </div>
+
+    <div class="meta-grid">
+        <div><span>Razred: </span><strong>___________________________</strong></div>
+        <div><span>Školska godina: </span><strong>___________________________</strong></div>
+        <div><span>Nastavnik/ca: </span><strong>___________________________</strong></div>
+        <div><span>Broj sati cjeline: </span><strong>6 (6 × 45 min = 270 min)</strong></div>
+    </div>
+
+    <!-- SAT 1 -->
+    <div class="zapis">
+        <div class="zapis-header">
+            <span class="sat-oznaka">SAT 1</span>
+            <span class="zapis-naslov">Analiza wireframe-a i HTML struktura web stranice</span>
+            <span class="zapis-trajanje">45 min</span>
+        </div>
+        <div class="zapis-body">
+            <div class="polje">
+                <span class="polje-naziv">Nastavna jedinica:</span>
+                <span class="polje-vrijednost">Kreiranje web stranice po wireframe-u – HTML struktura</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Opis aktivnosti:</span>
+                <span class="polje-vrijednost">Učenici su analizirali wireframe predložak landing stranice i identificirali semantičke HTML elemente. Primijenili su HTML5 semantičke tagove (<em>nav, header, main, section, article, footer</em>) za izgradnju strukturne osnove web stranice. Kreirana je kompletna HTML datoteka s ispravnom hijerarhijom elemenata.</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavne metode:</span>
+                <span class="polje-vrijednost">Demonstracija, individualni praktični rad, razgovor</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavna sredstva:</span>
+                <span class="polje-vrijednost">VS Code, web browser, wireframe predložak, tutorial dokument</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Odgojno-obrazovni ishodi:</span>
+                <span class="polje-vrijednost">
+                    <ul class="ishodi-lista">
+                        <li>Učenik analizira wireframe i prepoznaje odgovarajuće HTML tagove za svaku sekciju</li>
+                        <li>Učenik koristi semantičke HTML5 elemente za strukturiranje web stranice</li>
+                        <li>Učenik ispravno gradi hijerarhiju HTML dokumenta</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAT 2 -->
+    <div class="zapis">
+        <div class="zapis-header">
+            <span class="sat-oznaka">SAT 2</span>
+            <span class="zapis-naslov">CSS reset i pozicioniranje navigacije</span>
+            <span class="zapis-trajanje">45 min</span>
+        </div>
+        <div class="zapis-body">
+            <div class="polje">
+                <span class="polje-naziv">Nastavna jedinica:</span>
+                <span class="polje-vrijednost">Kreiranje web stranice po wireframe-u – CSS Grid i Flexbox u navigaciji</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Opis aktivnosti:</span>
+                <span class="polje-vrijednost">Učenici su primijenili CSS reset i svojstvo <em>box-sizing: border-box</em>. Pozicionirali su navigacijsku traku korištenjem CSS Grid layout-a (<em>grid-template-columns: 150px 1fr</em>) za raspored loga i linkova u dva stupca. Navigacijske linkove poravnali su Flexboxom (<em>justify-content: flex-end, align-items: center</em>).</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavne metode:</span>
+                <span class="polje-vrijednost">Demonstracija, individualni praktični rad</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavna sredstva:</span>
+                <span class="polje-vrijednost">VS Code, web browser, tutorial dokument</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Odgojno-obrazovni ishodi:</span>
+                <span class="polje-vrijednost">
+                    <ul class="ishodi-lista">
+                        <li>Učenik primjenjuje CSS reset i objašnjava svrhu svojstva <em>box-sizing</em></li>
+                        <li>Učenik razlikuje Grid (2D) i Flexbox (1D) te odabire prikladnu metodu za zadani raspored</li>
+                        <li>Učenik koristi <em>display: grid</em> i <em>grid-template-columns</em> za dvodimenzionalni raspored elemenata</li>
+                        <li>Učenik primjenjuje <em>display: flex</em> i <em>justify-content</em> za poravnanje navigacijskih elemenata</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAT 3 -->
+    <div class="zapis">
+        <div class="zapis-header">
+            <span class="sat-oznaka">SAT 3</span>
+            <span class="zapis-naslov">Hero sekcija i sekcija usluga</span>
+            <span class="zapis-trajanje">45 min</span>
+        </div>
+        <div class="zapis-body">
+            <div class="polje">
+                <span class="polje-naziv">Nastavna jedinica:</span>
+                <span class="polje-vrijednost">Kreiranje web stranice po wireframe-u – Flexbox centriranje i Grid s <em>repeat()</em></span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Opis aktivnosti:</span>
+                <span class="polje-vrijednost">Učenici su centrirali sadržaj hero sekcije horizontalno i vertikalno korištenjem Flexboxa s <em>flex-direction: column</em>. Implementirali su sekciju usluga s tri jednake kartice korištenjem CSS Grid funkcije <em>repeat(3, 1fr)</em> i mjernom jedinicom <em>fr</em>. Primijenjeno je svojstvo <em>object-fit: cover</em> za ispravno prikazivanje slika unutar kartica.</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavne metode:</span>
+                <span class="polje-vrijednost">Demonstracija, individualni praktični rad</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavna sredstva:</span>
+                <span class="polje-vrijednost">VS Code, web browser, tutorial dokument</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Odgojno-obrazovni ishodi:</span>
+                <span class="polje-vrijednost">
+                    <ul class="ishodi-lista">
+                        <li>Učenik koristi Flexbox s <em>flex-direction: column</em> za vertikalno slaganje i centriranje sadržaja</li>
+                        <li>Učenik primjenjuje <em>grid-template-columns: repeat(3, 1fr)</em> za jednoliku distribuciju elemenata</li>
+                        <li>Učenik objašnjava razliku između mjerne jedinice <em>fr</em> i fiksnih jedinica (px, %)</li>
+                        <li>Učenik koristi svojstvo <em>gap</em> za definiranje razmaka između grid elemenata</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAT 4 -->
+    <div class="zapis">
+        <div class="zapis-header">
+            <span class="sat-oznaka">SAT 4</span>
+            <span class="zapis-naslov">Završetak izrade stranice – recenzije, O nama i Footer</span>
+            <span class="zapis-trajanje">45 min</span>
+        </div>
+        <div class="zapis-body">
+            <div class="polje">
+                <span class="polje-naziv">Nastavna jedinica:</span>
+                <span class="polje-vrijednost">Kreiranje web stranice po wireframe-u – završetak i samostalna vježba</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Opis aktivnosti:</span>
+                <span class="polje-vrijednost">Učenici su dovršili stilizaciju preostalih sekcija stranice: recenzijama i sekcijom O nama u dvorazrednom Grid layoutu (<em>1fr 1fr</em> s <em>align-items: center</em>) te podnožjem stranice u Flexbox rasporedu. U samostalnoj vježbi učenici su personalizirali stranicu promjenom boja, fontova i dodavanjem hover efekata s <em>transition</em>. Provedena je usporedba s gotovim rješenjem.</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavne metode:</span>
+                <span class="polje-vrijednost">Demonstracija, individualni praktični rad, samostalno rješavanje zadataka</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavna sredstva:</span>
+                <span class="polje-vrijednost">VS Code, web browser, tutorial dokument, gotovo rješenje</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Odgojno-obrazovni ishodi:</span>
+                <span class="polje-vrijednost">
+                    <ul class="ishodi-lista">
+                        <li>Učenik kombinira Grid i Flexbox u istoj sekciji za složene rasporede</li>
+                        <li>Učenik koristi <em>align-items: center</em> na Grid kontejneru za vertikalno poravnanje stupaca</li>
+                        <li>Učenik samostalno prilagođava vizualne elemente stranice (boje, fontovi, hover efekti)</li>
+                        <li>Učenik izrađuje kompletnu statičnu web stranicu prema zadanom wireframe predlošku</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAT 5 -->
+    <div class="zapis">
+        <div class="zapis-header">
+            <span class="sat-oznaka">SAT 5</span>
+            <span class="zapis-naslov">Osnove responzivnog dizajna i media queries</span>
+            <span class="zapis-trajanje">45 min</span>
+        </div>
+        <div class="zapis-body">
+            <div class="polje">
+                <span class="polje-naziv">Nastavna jedinica:</span>
+                <span class="polje-vrijednost">Responzivni web dizajn – <em>@media</em> pravila i responzivna navigacija</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Opis aktivnosti:</span>
+                <span class="polje-vrijednost">Učenici su upoznali koncept responzivnog dizajna i važnost viewport meta taga. Uveden je desktop-first pristup razvoja. Primijenili su <em>@media</em> pravila za breakpoints 768px (tablet) i 480px (mobitel) te prilagodili navigacijsku traku za manje zaslone korištenjem <em>flex-wrap: wrap</em> i <em>justify-content: center</em>. Korišten je Chrome DevTools za simulaciju različitih uređaja.</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavne metode:</span>
+                <span class="polje-vrijednost">Demonstracija, individualni praktični rad</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavna sredstva:</span>
+                <span class="polje-vrijednost">VS Code, web browser, Chrome DevTools, tutorial dokument</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Odgojno-obrazovni ishodi:</span>
+                <span class="polje-vrijednost">
+                    <ul class="ishodi-lista">
+                        <li>Učenik objašnjava pojam responzivnog dizajna i svrhu viewport meta taga</li>
+                        <li>Učenik razlikuje desktop-first i mobile-first pristup razvoja</li>
+                        <li>Učenik piše <em>@media</em> pravila za zadane breakpoints i ispravno ih poredava</li>
+                        <li>Učenik koristi Chrome DevTools za testiranje izgleda stranice na različitim uređajima</li>
+                        <li>Učenik primjenjuje <em>flex-wrap</em> za prelom Flexbox elemenata u novi red</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAT 6 -->
+    <div class="zapis">
+        <div class="zapis-header">
+            <span class="sat-oznaka">SAT 6</span>
+            <span class="zapis-naslov">Responzivni Grid i završno testiranje</span>
+            <span class="zapis-trajanje">45 min</span>
+        </div>
+        <div class="zapis-body">
+            <div class="polje">
+                <span class="polje-naziv">Nastavna jedinica:</span>
+                <span class="polje-vrijednost">Responzivni web dizajn – responzivni Grid, <em>auto-fit</em>, <em>minmax()</em> i testiranje</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Opis aktivnosti:</span>
+                <span class="polje-vrijednost">Učenici su prilagodili Grid rasporede za manje zaslone (kartice usluga: 3 → 2 → 1 stupac; dvorazredne sekcije: 2 → 1 stupac). Uspoređena su dva pristupa: ručni media queries i napredna tehnika <em>repeat(auto-fit, minmax(250px, 1fr))</em>. Uvedena je CSS funkcija <em>clamp()</em> za fluidnu tipografiju. Provedeno je završno testiranje stranice na četiri veličine zaslona u Chrome DevToolsu.</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavne metode:</span>
+                <span class="polje-vrijednost">Demonstracija, individualni praktični rad, provjera rezultata</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Nastavna sredstva:</span>
+                <span class="polje-vrijednost">VS Code, web browser, Chrome DevTools, tutorial dokument, gotovo rješenje</span>
+            </div>
+            <div class="polje">
+                <span class="polje-naziv">Odgojno-obrazovni ishodi:</span>
+                <span class="polje-vrijednost">
+                    <ul class="ishodi-lista">
+                        <li>Učenik primjenjuje media queries za prilagodbu Grid rasporeda na tabletima i mobitelima</li>
+                        <li>Učenik koristi <em>repeat(auto-fit, minmax())</em> kao alternativu ručnim media queryjima za Grid</li>
+                        <li>Učenik objašnjava prednosti funkcije <em>clamp()</em> za fluidnu tipografiju</li>
+                        <li>Učenik sustavno testira responzivnost web stranice na različitim veličinama zaslona</li>
+                        <li>Učenik izrađuje kompletnu responzivnu web stranicu prema wireframe predlošku</li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ukupni pregled -->
+    <div class="pregled">
+        <h2>Pregled cjeline</h2>
+        <div class="pregled-grid">
+            <div class="pregled-stavka">
+                <div class="p-broj">6</div>
+                <div class="p-opis">nastavnih sati (6 × 45 min)</div>
+            </div>
+            <div class="pregled-stavka">
+                <div class="p-broj">3</div>
+                <div class="p-opis">tehnologije: HTML5, CSS Grid, Flexbox</div>
+            </div>
+            <div class="pregled-stavka">
+                <div class="p-broj">2</div>
+                <div class="p-opis">breakpoints: 768px, 480px</div>
+            </div>
+            <div class="pregled-stavka">
+                <div class="p-opis" style="padding-top:4px"><strong>Ključni koncepti:</strong><br>semantički HTML, box-sizing, display: grid, display: flex, fr, repeat(), gap, @media, auto-fit, minmax(), clamp()</div>
+            </div>
+            <div class="pregled-stavka">
+                <div class="p-opis" style="padding-top:4px"><strong>Alati:</strong><br>VS Code, Google Chrome, Chrome DevTools</div>
+            </div>
+            <div class="pregled-stavka">
+                <div class="p-opis" style="padding-top:4px"><strong>Ishod cjeline:</strong><br>Učenik samostalno izrađuje responzivnu web stranicu prema wireframe predlošku</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Potpis -->
+    <div class="potpis">
+        <div class="potpis-polje">Datum i mjesto</div>
+        <div class="potpis-polje">Potpis nastavnika/ce</div>
+    </div>
+
+</div>
+
+</body>
+</html>

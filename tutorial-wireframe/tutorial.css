@@ -1,0 +1,482 @@
+/* ============================================================
+   TUTORIAL STYLES — Web stranica po wireframe-u
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ---- Header ---- */
+.tut-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    text-align: center;
+    padding: 40px 20px 30px;
+}
+.tut-header h1 { font-size: 1.9rem; font-weight: 700; margin-bottom: 8px; letter-spacing: 1px; }
+.tut-header p { color: #aac4ff; font-size: 0.95rem; }
+
+/* ---- Navigation ---- */
+.tut-nav {
+    background: #16213e;
+    display: flex;
+    gap: 5px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+    border-bottom: 3px solid #4361ee;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.tut-nav a {
+    color: #aac4ff;
+    text-decoration: none;
+    padding: 14px 16px;
+    font-size: 0.85rem;
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap;
+}
+.tut-nav a:hover { color: white; background: rgba(255,255,255,0.07); }
+.tut-nav-rjesenje {
+    margin-left: auto;
+    background: #4361ee !important;
+    color: white !important;
+    padding: 10px 18px !important;
+    align-self: center;
+    border-radius: 4px;
+    font-weight: 600;
+}
+.tut-nav-rjesenje:hover { background: #3451d1 !important; }
+
+/* ---- Main ---- */
+.tut-main { max-width: 1100px; margin: 0 auto; padding: 30px 20px 60px; }
+
+/* ---- Sections ---- */
+.tut-section { margin-bottom: 40px; }
+
+.section-header {
+    border-radius: 8px 8px 0 0;
+    padding: 22px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.section-header h2 { font-size: 1.4rem; margin-bottom: 4px; }
+.section-header p { font-size: 0.85rem; opacity: 0.85; }
+
+.uvod-header  { background: linear-gradient(90deg,#1a1a2e,#2d4059); color: white; }
+.sat1-header  { background: linear-gradient(90deg,#1565C0,#1976D2); color: white; }
+.sat2-header  { background: linear-gradient(90deg,#2E7D32,#388E3C); color: white; }
+.sat3-header  { background: linear-gradient(90deg,#6A1B9A,#7B1FA2); color: white; }
+.sat4-header  { background: linear-gradient(90deg,#BF360C,#D84315); color: white; }
+.sat5-header  { background: linear-gradient(90deg,#004D40,#00695C); color: white; }
+.sat6-header  { background: linear-gradient(90deg,#37474F,#455A64); color: white; }
+
+.ciljevi-chip {
+    background: rgba(255,255,255,0.2);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+/* ---- Koraci ---- */
+.korak {
+    background: white;
+    border-radius: 0;
+    padding: 25px 28px;
+    border-left: 4px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.korak:last-child { border-radius: 0 0 8px 8px; border-bottom: none; }
+.tut-section > .korak:only-of-type { border-radius: 0 0 8px 8px; }
+
+.korak-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+.korak-header h3 { font-size: 1.05rem; flex: 1; }
+
+.korak-broj {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.sat1-boja { background: #1976D2; }
+.sat2-boja { background: #388E3C; }
+.sat3-boja { background: #7B1FA2; }
+.sat4-boja { background: #D84315; }
+.sat5-boja { background: #00695C; }
+.sat6-boja { background: #455A64; }
+
+.vrijeme-chip {
+    background: #f0f2f5;
+    color: #666;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+}
+
+/* ---- Layout helpers ---- */
+.row { display: flex; gap: 30px; flex-wrap: wrap; margin-top: 15px; }
+.col { flex: 1; min-width: 280px; }
+.center-col { display: flex; flex-direction: column; align-items: center; }
+
+/* ---- Code blocks ---- */
+.code-block {
+    background: #1e1e2e;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 15px 0;
+    font-size: 0.82rem;
+}
+.code-lang {
+    padding: 5px 14px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.html-lang { background: #e65100; color: white; }
+.css-lang  { background: #1565C0; color: white; }
+
+.code-block pre {
+    padding: 16px 20px;
+    overflow-x: auto;
+    color: #cdd6f4;
+    line-height: 1.7;
+    white-space: pre;
+}
+.code-block code { font-family: 'Consolas', 'Courier New', monospace; }
+
+/* Inline code */
+code {
+    background: #eef2ff;
+    color: #3451d1;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: 'Consolas', monospace;
+    font-size: 0.88em;
+}
+.code-block code { background: none; color: inherit; padding: 0; }
+
+/* ---- Boxes ---- */
+.info-box {
+    background: #f0f7ff;
+    border-left: 4px solid #1976D2;
+    border-radius: 0 6px 6px 0;
+    padding: 15px 18px;
+    margin: 15px 0;
+}
+.info-box h4 { color: #1565C0; margin-bottom: 8px; font-size: 0.9rem; }
+.info-box p { font-size: 0.88rem; margin-bottom: 6px; }
+
+.napomena {
+    background: #fff8e1;
+    border-left: 4px solid #F57F17;
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    font-size: 0.88rem;
+    margin: 12px 0;
+}
+
+.concept-box {
+    background: #f8f9ff;
+    border: 1px solid #c5cfe8;
+    border-radius: 6px;
+    padding: 16px;
+    margin: 15px 0;
+}
+.concept-box h4 { margin-bottom: 12px; font-size: 0.9rem; color: #333; }
+
+.setup-box {
+    background: #f0fdf4;
+    border: 1px solid #a7f3d0;
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin: 15px 0;
+}
+.setup-box h4 { margin-bottom: 10px; color: #065f46; font-size: 0.9rem; }
+.setup-box ol { padding-left: 18px; font-size: 0.88rem; }
+.setup-box li { margin-bottom: 5px; }
+
+.provjera {
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin-top: 20px;
+}
+.provjera h4 { color: #2e7d32; margin-bottom: 6px; }
+.provjera p  { font-size: 0.88rem; color: #1b5e20; }
+
+.provjera.uspjeh {
+    background: #fff8e1;
+    border-color: #ffd54f;
+}
+.provjera.uspjeh h4 { color: #e65100; }
+.provjera.uspjeh p  { color: #bf360c; }
+
+.zadatak-box {
+    background: #fff3e0;
+    border: 1px solid #ffcc80;
+    border-radius: 6px;
+    padding: 18px 20px;
+    margin: 15px 0;
+}
+.zadatak-box h4 { color: #e65100; margin-bottom: 10px; }
+.zadatak-box ol { padding-left: 20px; font-size: 0.88rem; }
+.zadatak-box li { margin-bottom: 6px; }
+
+/* ---- Tables ---- */
+.comp-table, .small-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+}
+.comp-table th {
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    text-align: left;
+}
+.comp-table td, .small-table td, .small-table th {
+    padding: 7px 10px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+}
+.small-table th { background: #f5f5f5; font-weight: 600; }
+.comp-table tr:hover td, .small-table tr:hover td { background: #f9f9f9; }
+.small-table td:first-child { width: 55%; }
+
+/* ---- Wireframe diagram ---- */
+.wf-dijagram { font-size: 0.85rem; }
+.wf-blok {
+    padding: 10px 14px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+}
+.wf-pod { margin: 8px 0 8px 20px; }
+.wf-blok-mali {
+    padding: 8px 12px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+}
+
+/* ---- Grid visualiser ---- */
+.grid-vizual {
+    border: 2px solid #1976D2;
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.82rem;
+    margin: 10px 0;
+}
+.gv-title {
+    background: #1976D2;
+    color: white;
+    padding: 6px 12px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+.gv-body {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    min-height: 60px;
+}
+.gv-body.three-col { grid-template-columns: repeat(3, 1fr); }
+.gv-col {
+    padding: 12px;
+    background: #e3f2fd;
+    border-right: 2px dashed #90CAF9;
+    text-align: center;
+    font-size: 0.8rem;
+}
+.gv-col:last-child { border-right: none; }
+.fixed-col { background: #fff3e0; }
+.flex-col  { background: #e3f2fd; }
+.gv-code {
+    background: #f5f5f5;
+    padding: 6px 12px;
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: #555;
+    border-top: 1px solid #ddd;
+}
+
+/* ---- Flex visualiser ---- */
+.flex-vizual {
+    border: 2px solid #388E3C;
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.82rem;
+    margin: 10px 0;
+}
+.fv-title {
+    background: #388E3C;
+    color: white;
+    padding: 6px 12px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+.fv-body {
+    display: flex;
+    align-items: center;
+    background: #e8f5e9;
+    min-height: 50px;
+    padding: 8px;
+    gap: 6px;
+}
+.fv-spacer {
+    flex: 1;
+    color: #aaa;
+    font-size: 0.75rem;
+    font-style: italic;
+    text-align: center;
+}
+.fv-item {
+    background: white;
+    border: 1px solid #a5d6a7;
+    padding: 6px 12px;
+    border-radius: 3px;
+    font-size: 0.78rem;
+}
+.fv-gumb {
+    background: #333;
+    color: white;
+    border-color: #333;
+}
+
+/* Vertical flex */
+.flex-vizual.vertical-flex { border-color: #7B1FA2; }
+.flex-vizual.vertical-flex .fv-title { background: #7B1FA2; }
+.fv-body-v {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f3e5f5;
+    padding: 12px;
+    gap: 8px;
+}
+.fv-item-v {
+    background: white;
+    border: 1px solid #ce93d8;
+    padding: 8px 20px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    width: 80%;
+    text-align: center;
+}
+.fv-note {
+    background: #f5f5f5;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    color: #666;
+    border-top: 1px solid #ddd;
+    font-family: monospace;
+}
+
+/* ---- Box-sizing demo ---- */
+.box-demo { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.demo-content-box, .demo-border-box {
+    flex: 1;
+    min-width: 130px;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+.demo-content-box { background: #ffebee; border: 2px solid #ef9a9a; }
+.demo-border-box  { background: #e8f5e9; border: 2px solid #a5d6a7; }
+
+/* ---- Summary boxes ---- */
+.summary-box {
+    border-radius: 6px;
+    padding: 18px;
+    margin-top: 10px;
+}
+.summary-box h4 { font-size: 1rem; margin-bottom: 12px; }
+.grid-box { background: #e3f2fd; border: 1px solid #90CAF9; }
+.grid-box h4 { color: #1565C0; }
+.flex-box { background: #e8f5e9; border: 1px solid #a5d6a7; }
+.flex-box h4 { color: #2e7d32; }
+
+/* ---- Sat pregled (intro cards) ---- */
+.sat-pregled { margin-top: 30px; }
+.sat-pregled h3 { margin-bottom: 16px; font-size: 1rem; color: #555; }
+.sat-pregled-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.sat-card {
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.sat-card strong { font-size: 0.9rem; }
+.sat-card small { font-size: 0.78rem; opacity: 0.85; line-height: 1.4; }
+.sat-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 0.75;
+}
+.sat1-card { background: #e3f2fd; color: #0d47a1; }
+.sat2-card { background: #e8f5e9; color: #1b5e20; }
+.sat3-card { background: #f3e5f5; color: #4a148c; }
+.sat4-card { background: #fbe9e7; color: #bf360c; }
+.sat5-card { background: #e0f2f1; color: #004D40; }
+.sat6-card { background: #eceff1; color: #263238; }
+
+/* ---- Wireframe image ---- */
+.wireframe-img {
+    max-width: 100%;
+    max-height: 380px;
+    object-fit: contain;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+.img-caption { font-size: 0.78rem; color: #888; margin-top: 6px; text-align: center; }
+
+.hint { font-size: 0.82rem; color: #777; font-style: italic; }
+
+/* ---- Footer ---- */
+.tut-footer {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    font-size: 0.8rem;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 700px) {
+    .sat-pregled-grid { grid-template-columns: 1fr 1fr; }
+    .tut-nav { gap: 0; }
+    .tut-nav a { padding: 12px 10px; font-size: 0.78rem; }
+    .gv-body { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+    .sat-pregled-grid { grid-template-columns: 1fr; }
+    .tut-header h1 { font-size: 1.4rem; }
+}
