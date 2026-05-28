@@ -3,28 +3,1453 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moja Stranica</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Tutorial: Web stranica po wireframe-u</title>
+    <link rel="stylesheet" href="tutorial.css">
 </head>
 <body>
 
-    <!-- SAT 1: Ovdje pišeš HTML strukturu -->
-    <!-- Slijedi upute iz tutorial.html -->
+<div class="tut-header">
+    <h1>Kreiranje web stranice po wireframe-u</h1>
+    <p>HTML5 &bull; CSS Grid &bull; Flexbox &bull; Responzivnost &mdash; 6 školskih sati (240 min)</p>
+</div>
 
-    <!-- NAVIGACIJA (Korak 1.3) -->
+<nav class="tut-nav">
+    <a href="#uvod">Uvod</a>
+    <a href="#sat1">&#9312; HTML struktura</a>
+    <a href="#sat2">&#9313; Navigacija</a>
+    <a href="#sat3">&#9314; Hero &amp; Usluge</a>
+    <a href="#sat4">&#9315; Završetak</a>
+    <a href="#sat5">&#9316; Responzivnost</a>
+    <a href="#sat6">&#9317; Responzivni Grid</a>
+    <a href="rjesenje/index.html" class="tut-nav-rjesenje" target="_blank">Gotovo rješenje &#8599;</a>
+</nav>
+
+<main class="tut-main">
+
+    <!-- ===================== UVOD ===================== -->
+    <section id="uvod" class="tut-section">
+        <div class="section-header uvod-header">
+            <h2>Uvod &mdash; Što ćemo graditi?</h2>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h3>Cilj tutorijala</h3>
+                <p>Iz wireframe-a gradimo kompletnu landing stranicu koristeći:</p>
+                <ul>
+                    <li><strong>HTML5</strong> semantičke tagove za strukturu</li>
+                    <li><strong>CSS Grid</strong> za 2D raspoređivanje sekcija</li>
+                    <li><strong>Flexbox</strong> za 1D poravnanje elemenata unutar sekcija</li>
+                </ul>
+
+                <div class="concept-box">
+                    <h4>Grid vs. Flexbox &mdash; kada koristiti koji?</h4>
+                    <table class="comp-table">
+                        <thead>
+                            <tr><th>CSS Grid</th><th>Flexbox</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2D &mdash; redovi <em>i</em> kolone</td>
+                                <td>1D &mdash; jedan smjer</td>
+                            </tr>
+                            <tr>
+                                <td>Cijela stranica, sekcije</td>
+                                <td>Navigacija, gumbi, forme</td>
+                            </tr>
+                            <tr>
+                                <td><code>grid-template-columns</code></td>
+                                <td><code>justify-content</code>, <code>align-items</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="setup-box">
+                    <h4>&#9881; Priprema (5 min)</h4>
+                    <ol>
+                        <li>Otvori VS Code</li>
+                        <li>Kreiraj novu mapu <code>moja-stranica</code></li>
+                        <li>Unutar mape kreiraj <code>index.html</code> i <code>style.css</code></li>
+                        <li>Otvori <code>index.html</code> u browseru (desni klik &rarr; <em>Open with Live Server</em>)</li>
+                    </ol>
+                    <p class="hint">Alternativno: koristi gotovi predložak iz mape <strong>pocetna/</strong></p>
+                </div>
+            </div>
+            <div class="col center-col">
+                <h3>Wireframe koji gradimo</h3>
+                <img src="../css/Grid-wireframe/wireframe.jpg" alt="Wireframe landing stranice" class="wireframe-img">
+                <p class="img-caption">Wireframe prikazuje raspored elemenata bez vizualnog dizajna</p>
+            </div>
+        </div>
+
+        <div class="sat-pregled">
+            <h3>Pregled 6 sati</h3>
+            <div class="sat-pregled-grid">
+                <div class="sat-card sat1-card"><span class="sat-num">SAT 1</span><strong>HTML struktura</strong><small>Analiza wireframe-a, semantički tagovi, cijeli HTML</small></div>
+                <div class="sat-card sat2-card"><span class="sat-num">SAT 2</span><strong>Navigacija</strong><small>CSS reset, Grid za nav, Flexbox za linkove</small></div>
+                <div class="sat-card sat3-card"><span class="sat-num">SAT 3</span><strong>Hero &amp; Usluge</strong><small>Flexbox centriranje, Grid repeat()</small></div>
+                <div class="sat-card sat4-card"><span class="sat-num">SAT 4</span><strong>Završetak</strong><small>Recenzije, O nama, Footer, vježba</small></div>
+                <div class="sat-card sat5-card"><span class="sat-num">SAT 5</span><strong>Responzivnost</strong><small>Media queries, breakpoints, responzivna navigacija</small></div>
+                <div class="sat-card sat6-card"><span class="sat-num">SAT 6</span><strong>Responzivni Grid</strong><small>auto-fit, minmax(), tipografija, DevTools</small></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SAT 1 ===================== -->
+    <section id="sat1" class="tut-section">
+        <div class="section-header sat1-header">
+            <div>
+                <h2>SAT 1 &mdash; Analiza wireframe-a i HTML struktura</h2>
+                <p>Trajanje: 40 minuta &bull; Tema: Semantički HTML tagovi</p>
+            </div>
+            <div class="ciljevi-chip">HTML5 &bull; Semantika &bull; Struktura dokumenta</div>
+        </div>
+
+        <!-- 1.1 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat1-boja">1.1</span>
+                <h3>Analiza wireframe-a</h3>
+                <span class="vrijeme-chip">10 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Svaku vizualnu sekciju wireframe-a pretvaramo u HTML tag. Identificiraj 4 glavna dijela:</p>
+                    <div class="wf-dijagram">
+                        <div class="wf-blok" style="background:#e3f2fd; border-left:4px solid #1976D2">
+                            <code>&lt;nav&gt;</code> &mdash; Logo lijevo + linkovi desno
+                        </div>
+                        <div class="wf-blok" style="background:#f3e5f5; border-left:4px solid #7B1FA2">
+                            <code>&lt;header&gt;</code> &mdash; Hero: naslov, opis, gumb
+                        </div>
+                        <div class="wf-blok" style="background:#e8f5e9; border-left:4px solid #388E3C; padding-bottom: 0">
+                            <code>&lt;main&gt;</code> &mdash; Glavni sadržaj:
+                            <div class="wf-pod">
+                                <div class="wf-blok-mali" style="background:#fff8e1; border-left:3px solid #F57F17">
+                                    <code>&lt;section class="usluge"&gt;</code> &mdash; 3 kartice
+                                </div>
+                                <div class="wf-blok-mali" style="background:#fce4ec; border-left:3px solid #C62828">
+                                    <code>&lt;section class="recenzije"&gt;</code> &mdash; 2 kolone
+                                </div>
+                                <div class="wf-blok-mali" style="background:#e0f2f1; border-left:3px solid #00695C">
+                                    <code>&lt;section class="o-nama"&gt;</code> &mdash; tekst + mapa
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wf-blok" style="background:#fafafa; border-left:4px solid #757575">
+                            <code>&lt;footer&gt;</code> &mdash; Kontakt forma
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="info-box">
+                        <h4>Semantički tagovi HTML5</h4>
+                        <p>Umjesto da sve stavljamo u <code>&lt;div&gt;</code>, koristimo tagove koji <em>opisuju značenje</em> sadržaja. Prednosti: bolja čitljivost koda, pristupačnost, SEO.</p>
+                        <table class="small-table">
+                            <tr><td><code>&lt;nav&gt;</code></td><td>blok navigacije</td></tr>
+                            <tr><td><code>&lt;header&gt;</code></td><td>zaglavlje stranice ili sekcije</td></tr>
+                            <tr><td><code>&lt;main&gt;</code></td><td>glavni, jedinstveni sadržaj stranice</td></tr>
+                            <tr><td><code>&lt;section&gt;</code></td><td>tematski grupiran sadržaj</td></tr>
+                            <tr><td><code>&lt;article&gt;</code></td><td>samostalan sadržaj (kartica, post)</td></tr>
+                            <tr><td><code>&lt;footer&gt;</code></td><td>podnožje stranice ili sekcije</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1.2 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat1-boja">1.2</span>
+                <h3>Osnova HTML dokumenta</h3>
+                <span class="vrijeme-chip">8 min</span>
+            </div>
+            <p>Otvori <code>index.html</code> i upiši osnovu dokumenta. Svaki HTML dokument mora imati ovu strukturu:</p>
+            <div class="code-block">
+                <div class="code-lang html-lang">HTML</div>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="hr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Moja Stranica&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;!-- Ovdje dolazi cijeli sadržaj stranice --&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+            <div class="napomena">
+                <strong>&#9432; Zapamti:</strong> <code>&lt;link rel="stylesheet" href="style.css"&gt;</code> mora biti unutar <code>&lt;head&gt;</code> — on govori browseru gdje je CSS datoteka.
+            </div>
+        </div>
+
+        <!-- 1.3 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat1-boja">1.3</span>
+                <h3>Navigacija</h3>
+                <span class="vrijeme-chip">5 min</span>
+            </div>
+            <p>Unutar <code>&lt;body&gt;</code> dodaj navigaciju. Klasa <code>gumb</code> se koristi za stiliziranje zadnjeg linka kao gumba.</p>
+            <div class="code-block">
+                <div class="code-lang html-lang">HTML</div>
+                <pre><code>&lt;nav class="navigacija"&gt;
+    &lt;div class="logo"&gt;LOGO&lt;/div&gt;
+    &lt;ul class="nav-linkovi"&gt;
+        &lt;li&gt;&lt;a href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Services&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#" class="gumb"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- 1.4 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat1-boja">1.4</span>
+                <h3>Hero sekcija</h3>
+                <span class="vrijeme-chip">4 min</span>
+            </div>
+            <p>Ispod navigacije dodaj <code>&lt;header&gt;</code> s naslovom, podnaslovom i gumbom:</p>
+            <div class="code-block">
+                <div class="code-lang html-lang">HTML</div>
+                <pre><code>&lt;header class="hero"&gt;
+    &lt;h1&gt;HEADLINE&lt;/h1&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing.&lt;/p&gt;
+    &lt;button type="button"&gt;GET STARTED&lt;/button&gt;
+&lt;/header&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- 1.5 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat1-boja">1.5</span>
+                <h3>Sekcija Usluge &mdash; 3 kartice</h3>
+                <span class="vrijeme-chip">8 min</span>
+            </div>
+            <p>Otvori <code>&lt;main&gt;</code> i dodaj sekciju s tri kartice usluga. Svaka kartica je <code>&lt;article&gt;</code>:</p>
+            <div class="code-block">
+                <div class="code-lang html-lang">HTML</div>
+                <pre><code>&lt;main&gt;
+    &lt;section class="usluge"&gt;
+        &lt;h2&gt;OUR SERVICES&lt;/h2&gt;
+        &lt;div class="usluge-grid"&gt;
+            &lt;article class="kartica"&gt;
+                &lt;img src="https://picsum.photos/300/200?random=1" alt="Usluga 1"&gt;
+                &lt;h3&gt;Service 1&lt;/h3&gt;
+                &lt;p&gt;Kratki opis prve usluge.&lt;/p&gt;
+            &lt;/article&gt;
+            &lt;article class="kartica"&gt;
+                &lt;img src="https://picsum.photos/300/200?random=2" alt="Usluga 2"&gt;
+                &lt;h3&gt;Service 2&lt;/h3&gt;
+                &lt;p&gt;Kratki opis druge usluge.&lt;/p&gt;
+            &lt;/article&gt;
+            &lt;article class="kartica"&gt;
+                &lt;img src="https://picsum.photos/300/200?random=3" alt="Usluga 3"&gt;
+                &lt;h3&gt;Service 3&lt;/h3&gt;
+                &lt;p&gt;Kratki opis treće usluge.&lt;/p&gt;
+            &lt;/article&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- 1.6 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat1-boja">1.6</span>
+                <h3>Recenzije, O nama i Footer</h3>
+                <span class="vrijeme-chip">5 min</span>
+            </div>
+            <p>Nastavi unutar <code>&lt;main&gt;</code>, a zatim zatvori s <code>&lt;footer&gt;</code>:</p>
+            <div class="code-block">
+                <div class="code-lang html-lang">HTML</div>
+                <pre><code>    &lt;section class="recenzije"&gt;
+        &lt;div class="recenzija-lijevo"&gt;
+            &lt;img src="https://picsum.photos/400/280?random=4" alt="Recenzija"&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="recenzija-desno"&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Duis et arcu ac ipsum interdum ullamcorper.&lt;/p&gt;
+            &lt;img src="https://picsum.photos/80/80?random=5" alt="Osoba"&gt;
+        &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="o-nama"&gt;
+        &lt;div class="o-nama-tekst"&gt;
+            &lt;h2&gt;ABOUT US&lt;/h2&gt;
+            &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class="mapa-placeholder"&gt;&#128205; Lokacija&lt;/div&gt;
+    &lt;/section&gt;
+
+&lt;/main&gt;
+
+&lt;footer&gt;
+    &lt;h2&gt;CONTACT US&lt;/h2&gt;
+    &lt;form class="kontakt-forma"&gt;
+        &lt;input type="text" placeholder="Vaša poruka..."&gt;
+        &lt;button type="submit"&gt;SEND&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/footer&gt;</code></pre>
+            </div>
+            <div class="provjera">
+                <h4>&#10003; Provjera &mdash; Sat 1 završen</h4>
+                <p>Spremi datoteku i otvori u browseru. Vidjet ćeš sav sadržaj bez stilova &mdash; to je potpuno ispravno. Struktura je gotova, CSS dolazi u sljedećim satima!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SAT 2 ===================== -->
+    <section id="sat2" class="tut-section">
+        <div class="section-header sat2-header">
+            <div>
+                <h2>SAT 2 &mdash; CSS Reset i Navigacija</h2>
+                <p>Trajanje: 40 minuta &bull; Tema: Grid i Flexbox osnove</p>
+            </div>
+            <div class="ciljevi-chip">CSS Reset &bull; display: grid &bull; display: flex</div>
+        </div>
+
+        <!-- 2.1 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat2-boja">2.1</span>
+                <h3>CSS Reset i box-sizing</h3>
+                <span class="vrijeme-chip">8 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Otvori <code>style.css</code>. Na samom početku dodaj <strong>reset</strong> koji uklanja razlike između browsera:</p>
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+}</code></pre>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="info-box">
+                        <h4>Zašto <code>box-sizing: border-box</code>?</h4>
+                        <p>Bez toga, <code>padding</code> se <em>dodaje</em> na definiranu širinu, što otežava izračun. S <code>border-box</code> padding je uključen u širinu &mdash; puno predvidljivije!</p>
+                        <div class="box-demo">
+                            <div class="demo-content-box">
+                                <strong>content-box (zadano)</strong><br>
+                                width: 200px + padding: 20px<br>
+                                = <em>240px ukupno</em>
+                            </div>
+                            <div class="demo-border-box">
+                                <strong>border-box</strong><br>
+                                width: 200px (padding uključen)<br>
+                                = <em>200px ukupno</em>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2.2 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat2-boja">2.2</span>
+                <h3>Navigacija &mdash; CSS Grid</h3>
+                <span class="vrijeme-chip">15 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Wireframe: <strong>logo lijevo</strong>, <strong>linkovi desno</strong>. Dvije kolone &rarr; koristimo <strong>Grid</strong>.</p>
+                    <div class="grid-vizual">
+                        <div class="gv-title">display: grid</div>
+                        <div class="gv-body">
+                            <div class="gv-col fixed-col">150px<br><strong>LOGO</strong></div>
+                            <div class="gv-col flex-col">1fr (ostatak prostora)<br><strong>LINKOVI</strong></div>
+                        </div>
+                        <div class="gv-code">grid-template-columns: 150px 1fr</div>
+                    </div>
+
+                    <div class="info-box" style="margin-top:15px">
+                        <h4>Što znači <code>1fr</code>?</h4>
+                        <p><code>fr</code> je <em>fraction</em> (razmjerni dio). Kolona s <code>1fr</code> zauzima sav preostali slobodni prostor nakon što se dodijeli fiksna kolona.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>/* ===== NAVIGACIJA ===== */
+.navigacija {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}</code></pre>
+                    </div>
+                    <p class="hint" style="margin-top:10px">Spremi i osvježi browser &mdash; logo i lista se sada raspoređuju u 2 stupca.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2.3 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat2-boja">2.3</span>
+                <h3>Navigacijski linkovi &mdash; Flexbox</h3>
+                <span class="vrijeme-chip">17 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Linkovi trebaju biti <strong>u redu</strong> i gurnuti na <strong>desnu stranu</strong>. To je posao za Flexbox s <code>justify-content: flex-end</code>.</p>
+
+                    <div class="flex-vizual">
+                        <div class="fv-title">display: flex &nbsp;&bull;&nbsp; justify-content: flex-end</div>
+                        <div class="fv-body">
+                            <div class="fv-spacer">&#8592; slobodan prostor</div>
+                            <div class="fv-item">About</div>
+                            <div class="fv-item">Services</div>
+                            <div class="fv-item">Contact</div>
+                            <div class="fv-item fv-gumb">Contact</div>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top:15px">
+                        <h4>Osi u Flexboxu</h4>
+                        <table class="small-table">
+                            <tr><td><code>justify-content</code></td><td>raspored po <strong>glavnoj</strong> osi (default: horizontalnoj)</td></tr>
+                            <tr><td><code>align-items</code></td><td>raspored po <strong>sporednoj</strong> osi (vertikalno)</td></tr>
+                            <tr><td><code>flex-direction: column</code></td><td>mijenja glavnu os na vertikalnu</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>/* Nav linkovi */
+.nav-linkovi {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-linkovi a {
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.nav-linkovi a:hover {
+    opacity: 0.6;
+}
+
+/* Gumb (obrub) u navigaciji */
+.nav-linkovi .gumb {
+    border: 1px solid #333;
+    padding: 7px 18px;
+}
+
+.nav-linkovi .gumb:hover {
+    background: #333;
+    color: white;
+    opacity: 1;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="provjera">
+                <h4>&#10003; Provjera &mdash; Sat 2 završen</h4>
+                <p>Navigacija sada izgleda ispravno: logo lijevo, linkovi desno, zadnji link u obliku gumba. Ostatak stranice još nije stiliziran.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SAT 3 ===================== -->
+    <section id="sat3" class="tut-section">
+        <div class="section-header sat3-header">
+            <div>
+                <h2>SAT 3 &mdash; Hero sekcija i Usluge</h2>
+                <p>Trajanje: 40 minuta &bull; Tema: Flexbox centriranje, Grid repeat()</p>
+            </div>
+            <div class="ciljevi-chip">flex-direction: column &bull; repeat(3, 1fr) &bull; gap</div>
+        </div>
+
+        <!-- 3.1 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat3-boja">3.1</span>
+                <h3>Hero sekcija &mdash; Flexbox centriranje</h3>
+                <span class="vrijeme-chip">18 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Hero sekcija ima sadržaj centriran <strong>horizontalno i vertikalno</strong>. Elementi (naslov, tekst, gumb) su složeni <strong>vertikalno</strong> &rarr; <code>flex-direction: column</code>.</p>
+
+                    <div class="flex-vizual vertical-flex">
+                        <div class="fv-title">flex-direction: column &nbsp;+&nbsp; align-items: center</div>
+                        <div class="fv-body-v">
+                            <div class="fv-item-v">H1: HEADLINE</div>
+                            <div class="fv-item-v">p: Lorem ipsum...</div>
+                            <div class="fv-item-v fv-gumb">GET STARTED</div>
+                        </div>
+                        <div class="fv-note">
+                            align-items: center &rarr; centrira po X osi<br>
+                            justify-content: center &rarr; centrira po Y osi
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>/* ===== HERO SEKCIJA ===== */
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+    text-align: center;
+    padding: 60px 40px;
+    background-color: #f8f8f8;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 35px;
+}
+
+.hero button {
+    padding: 12px 35px;
+    border: 1.5px solid #333;
+    background: transparent;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.hero button:hover {
+    background: #333;
+    color: white;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3.2 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat3-boja">3.2</span>
+                <h3>Usluge &mdash; Grid s <code>repeat()</code></h3>
+                <span class="vrijeme-chip">22 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Tri kartice u jednom redu, jednake širine. Umjesto <code>1fr 1fr 1fr</code>, koristimo <strong><code>repeat()</code></strong> koji skraćuje zapis:</p>
+
+                    <div class="info-box">
+                        <h4>Funkcija <code>repeat(n, vrijednost)</code></h4>
+                        <p><code>repeat(3, 1fr)</code> &equiv; <code>1fr 1fr 1fr</code></p>
+                        <p>Čita se: <em>"napravi 3 kolone, svaka širine 1fr"</em></p>
+                    </div>
+
+                    <div class="grid-vizual" style="margin-top:15px">
+                        <div class="gv-title">grid-template-columns: repeat(3, 1fr)</div>
+                        <div class="gv-body three-col">
+                            <div class="gv-col">1fr<br>Kartica 1</div>
+                            <div class="gv-col">1fr<br>Kartica 2</div>
+                            <div class="gv-col">1fr<br>Kartica 3</div>
+                        </div>
+                        <div class="gv-code">gap: 30px &mdash; razmak između kartica</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>/* ===== USLUGE ===== */
+.usluge {
+    padding: 70px 60px;
+    text-align: center;
+    background: white;
+}
+
+.usluge h2 {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    margin-bottom: 50px;
+}
+
+/* Grid za 3 kartice */
+.usluge-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+/* Kartica */
+.kartica {
+    text-align: left;
+    border: 1px solid #eee;
+    padding: 20px;
+}
+
+.kartica img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.kartica h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.kartica p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.6;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="provjera">
+                <h4>&#10003; Provjera &mdash; Sat 3 završen</h4>
+                <p>Spremi i osvježi browser. Hero sekcija je centrirana, a kartice usluga su raspoređene u 3 jednake kolone.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SAT 4 ===================== -->
+    <section id="sat4" class="tut-section">
+        <div class="section-header sat4-header">
+            <div>
+                <h2>SAT 4 &mdash; Recenzije, O nama i Footer</h2>
+                <p>Trajanje: 40 minuta &bull; Tema: Grid 2 kolone, Footer, završna vježba</p>
+            </div>
+            <div class="ciljevi-chip">1fr 1fr &bull; align-items &bull; border-radius</div>
+        </div>
+
+        <!-- 4.1 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat4-boja">4.1</span>
+                <h3>Recenzije &mdash; Grid 2 kolone</h3>
+                <span class="vrijeme-chip">15 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Dvije jednake kolone: lijeva ima sliku i tekst, desna tekst i malu sliku osobe. Sama desna kolona koristi Flexbox za raspoređivanje svog sadržaja.</p>
+                    <div class="grid-vizual">
+                        <div class="gv-title">grid-template-columns: 1fr 1fr</div>
+                        <div class="gv-body">
+                            <div class="gv-col">1fr<br><small>slika + tekst</small></div>
+                            <div class="gv-col">1fr<br><small>tekst + slika osobe</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>/* ===== RECENZIJE ===== */
+.recenzije {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #f5f5f5;
+}
+
+.recenzija-lijevo,
+.recenzija-desno {
+    padding: 50px 40px;
+}
+
+.recenzija-lijevo img {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Desna kolona: Flexbox za raspored */
+.recenzija-desno {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+}
+
+.recenzija-desno p {
+    line-height: 1.8;
+    color: #555;
+}
+
+.recenzija-desno img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.2 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat4-boja">4.2</span>
+                <h3>O nama s mapom &mdash; Grid 2 kolone</h3>
+                <span class="vrijeme-chip">10 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Isti princip kao recenzije: tekst lijevo, mapa desno. Koristimo <code>align-items: center</code> na grid kontejneru da vertikalno centriramo stupce.</p>
+                </div>
+                <div class="col">
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>/* ===== O NAMA ===== */
+.o-nama {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    padding: 70px 60px;
+    align-items: center;
+}
+
+.o-nama-tekst h2 {
+    font-size: 1.6rem;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.o-nama-tekst p {
+    line-height: 1.8;
+    color: #555;
+}
+
+/* Placeholder za Google Maps */
+.mapa-placeholder {
+    background: #e8e8e8;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border: 1px solid #ccc;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.3 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat4-boja">4.3</span>
+                <h3>Footer &mdash; Flexbox</h3>
+                <span class="vrijeme-chip">8 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Footer je centriran vertikalno (naslov iznad forme) i horizontalno. Forma input+gumb je Flexbox u redu.</p>
+                </div>
+                <div class="col">
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>/* ===== FOOTER ===== */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    background: #f8f8f8;
+    border-top: 1px solid #ddd;
+}
+
+footer h2 {
+    font-size: 1.4rem;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+}
+
+/* Forma: input i gumb u redu */
+.kontakt-forma {
+    display: flex;
+    gap: 0;
+}
+
+.kontakt-forma input {
+    padding: 11px 20px;
+    border: 1px solid #ccc;
+    width: 300px;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.kontakt-forma button {
+    padding: 11px 25px;
+    background: #333;
+    color: white;
+    border: 1px solid #333;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.kontakt-forma button:hover {
+    background: #555;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4.4 Zadatak -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat4-boja">4.4</span>
+                <h3>Samostalni zadatak &mdash; personalizacija</h3>
+                <span class="vrijeme-chip">7 min</span>
+            </div>
+            <div class="zadatak-box">
+                <h4>&#9998; Prilagodi stranicu po svom ukusu:</h4>
+                <ol>
+                    <li>Promijeni boju pozadine hero sekcije &mdash; probaj <code>background: #e8f4f8</code> ili neku drugu boju</li>
+                    <li>Dodaj boju pozadine navigaciji &mdash; <code>.navigacija { background: #222; color: white; }</code></li>
+                    <li>Dodaj animaciju na hover efekte gumba &mdash; <code>transition: all 0.3s ease;</code></li>
+                    <li>Promijeni font na Google Font: dodaj u <code>&lt;head&gt;</code> link s Google Fontova i primijeni na <code>body</code></li>
+                    <li><strong>Izazov:</strong> Dodaj <code>box-shadow</code> karticama kad se miš nađe iznad njih</li>
+                </ol>
+            </div>
+
+            <div class="provjera uspjeh">
+                <h4>&#127881; Tutorial završen!</h4>
+                <p>Izgradio si kompletnu web stranicu po wireframe-u koristeći HTML5, CSS Grid i Flexbox. Usporedi svoju stranicu s gotovim rješenjem u mapi <strong>rjesenje/</strong>.</p>
+            </div>
+        </div>
+
+        <!-- Sažetak -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj" style="background:#555">&#9733;</span>
+                <h3>Sažetak &mdash; brza referenca</h3>
+                <span class="vrijeme-chip">Referenca</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="summary-box grid-box">
+                        <h4>CSS Grid</h4>
+                        <table class="small-table">
+                            <tr><td><code>display: grid</code></td><td>uključuje grid</td></tr>
+                            <tr><td><code>grid-template-columns: 1fr 1fr</code></td><td>2 jednake kolone</td></tr>
+                            <tr><td><code>grid-template-columns: 150px 1fr</code></td><td>fiksna + fleksibilna</td></tr>
+                            <tr><td><code>repeat(3, 1fr)</code></td><td>3 jednake kolone</td></tr>
+                            <tr><td><code>gap: 20px</code></td><td>razmak između ćelija</td></tr>
+                            <tr><td><code>align-items: center</code></td><td>vertikalno centriranje</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="summary-box flex-box">
+                        <h4>Flexbox</h4>
+                        <table class="small-table">
+                            <tr><td><code>display: flex</code></td><td>uključuje flexbox</td></tr>
+                            <tr><td><code>flex-direction: column</code></td><td>elementi su složeni vertikalno</td></tr>
+                            <tr><td><code>justify-content: center</code></td><td>centrira po glavnoj osi</td></tr>
+                            <tr><td><code>justify-content: flex-end</code></td><td>gura na kraj</td></tr>
+                            <tr><td><code>align-items: center</code></td><td>centrira po sporednoj osi</td></tr>
+                            <tr><td><code>gap: 20px</code></td><td>razmak između elemenata</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px">
+                <h4>Gdje koristiti Grid, a gdje Flexbox u ovoj stranici?</h4>
+                <table class="small-table">
+                    <thead><tr><th>Element</th><th>Metoda</th><th>Zašto</th></tr></thead>
+                    <tbody>
+                        <tr><td>Navigacija</td><td>Grid</td><td>Logo i lista su 2 stupca</td></tr>
+                        <tr><td>Nav linkovi</td><td>Flexbox</td><td>Linkovi u redu, gurnuti desno</td></tr>
+                        <tr><td>Hero sekcija</td><td>Flexbox</td><td>Elementi složeni vertikalno, centriranje</td></tr>
+                        <tr><td>3 kartice</td><td>Grid</td><td>repeat(3, 1fr) &mdash; jednaki stupci</td></tr>
+                        <tr><td>Recenzije</td><td>Grid</td><td>2 jednaka stupca</td></tr>
+                        <tr><td>Desna recenzija</td><td>Flexbox</td><td>Sadržaj složen vertikalno</td></tr>
+                        <tr><td>O nama</td><td>Grid</td><td>2 stupca, vertikalno centriranje</td></tr>
+                        <tr><td>Footer</td><td>Flexbox</td><td>Naslov + forma složeni vertikalno</td></tr>
+                        <tr><td>Forma</td><td>Flexbox</td><td>Input i gumb u redu bez razmaka</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
 
-    <!-- HERO SEKCIJA (Korak 1.4) -->
+    <!-- ===================== SAT 5 ===================== -->
+    <section id="sat5" class="tut-section">
+        <div class="section-header sat5-header">
+            <div>
+                <h2>SAT 5 &mdash; Responzivni dizajn i Media Queries</h2>
+                <p>Trajanje: 40 minuta &bull; Tema: @media, breakpoints, responzivna navigacija</p>
+            </div>
+            <div class="ciljevi-chip">@media &bull; max-width &bull; flex-wrap</div>
+        </div>
 
+        <!-- 5.1 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat5-boja">5.1</span>
+                <h3>Što je responzivni dizajn?</h3>
+                <span class="vrijeme-chip">10 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Responzivna stranica prilagođava izgled prema <strong>širini zaslona</strong> uređaja. Isti HTML, ali CSS mijenja raspored ovisno o veličini prozora.</p>
+                    <div class="info-box">
+                        <h4>Viewport meta tag &mdash; zašto je bitan?</h4>
+                        <p>Već ga imamo u <code>&lt;head&gt;</code>:</p>
+                        <div class="code-block" style="margin:8px 0">
+                            <div class="code-lang html-lang">HTML</div>
+                            <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+                        </div>
+                        <p>Bez ovog taga, mobilni browser bi skalirao stranicu kao da je široka 980px. S njim, stranica se prikazuje u stvarnoj širini zaslona.</p>
+                    </div>
+                    <div class="info-box">
+                        <h4>&#128269; Testiranje u DevToolsu</h4>
+                        <ol style="font-size:0.88rem; padding-left:18px; line-height:1.8">
+                            <li>Pritisni <strong>F12</strong> u Chromeu</li>
+                            <li>Klikni ikonu mobitela (<strong>Toggle device toolbar</strong>)</li>
+                            <li>Odaberi uređaj ili unesi širinu ručno (npr. 375px za iPhone)</li>
+                            <li>Osvježi stranicu i promatraj promjene</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="concept-box">
+                        <h4>Naši breakpoints</h4>
+                        <p>Breakpoint je širina zaslona na kojoj mijenjamo CSS. Koristit ćemo dva:</p>
+                        <table class="small-table" style="margin-top:10px">
+                            <thead><tr><th>Naziv</th><th>Breakpoint</th><th>Uređaji</th></tr></thead>
+                            <tbody>
+                                <tr>
+                                    <td>Desktop</td>
+                                    <td><em>bez ograničenja</em></td>
+                                    <td>Računala, veći laptopi</td>
+                                </tr>
+                                <tr>
+                                    <td>Tablet</td>
+                                    <td><code>max-width: 768px</code></td>
+                                    <td>Tableti, manji laptopi</td>
+                                </tr>
+                                <tr>
+                                    <td>Mobitel</td>
+                                    <td><code>max-width: 480px</code></td>
+                                    <td>Pametni telefoni</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="napomena" style="margin-top:12px">
+                        <strong>&#9432; Desktop-first pristup:</strong> Prvo pišemo CSS za desktop (što smo radili do sad), a zatim dodajemo <code>@media</code> pravila koja <em>prepisuju</em> stilove za manje zaslone.
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <!-- MAIN — USLUGE, RECENZIJE, O NAMA (Koraci 1.5 i 1.6) -->
-    <main>
+        <!-- 5.2 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat5-boja">5.2</span>
+                <h3>Sintaksa media queries</h3>
+                <span class="vrijeme-chip">12 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Media query se piše s <code>@media</code> pravilom. CSS unutar vitičastih zagrada primjenjuje se <strong>samo</strong> kad je uvjet ispunjen.</p>
+                    <div class="info-box">
+                        <h4>Kako čitati media query?</h4>
+                        <p><code>@media (max-width: 768px)</code> čita se kao:<br><em>"Primijeni ove stilove kad je širina prozora <strong>manja ili jednaka</strong> 768px"</em></p>
+                        <hr style="margin:10px 0;border:none;border-top:1px solid #ddd">
+                        <p>Na dnu <code>style.css</code> dodaj <strong>oba bloka</strong> (redosljed je bitan &mdash; tablet dolazi prvi):</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>/* ===== RESPONZIVNOST ===== */
 
+/* ---- Tablet i manji (≤ 768px) ---- */
+@media (max-width: 768px) {
 
-    </main>
+    /* Ovdje pišemo CSS koji mijenja
+       izgled na tabletima */
 
-    <!-- FOOTER (Korak 1.6) -->
+}
 
+/* ---- Mobitel (≤ 480px) ---- */
+@media (max-width: 480px) {
+
+    /* Ovdje pišemo CSS koji mijenja
+       izgled na mobitelima */
+
+}</code></pre>
+                    </div>
+                    <div class="napomena">
+                        <strong>Bitan redoslijed!</strong> <code>480px</code> blok mora doći <em>ispod</em> <code>768px</code> bloka — inače se mobilni stilovi neće primijeniti.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5.3 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat5-boja">5.3</span>
+                <h3>Responzivna navigacija</h3>
+                <span class="vrijeme-chip">18 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Na desktopu navigacija ima 2 Grid kolone. Na tabletu logo i linkovi ne stanu u red &mdash; prelazimo na <strong>1 kolonu</strong>, a linkove centriramo Flexboxom.</p>
+
+                    <div class="grid-vizual" style="margin-bottom:15px">
+                        <div class="gv-title">Desktop &mdash; grid-template-columns: 150px 1fr</div>
+                        <div class="gv-body">
+                            <div class="gv-col fixed-col">LOGO</div>
+                            <div class="gv-col flex-col">About &nbsp; Services &nbsp; Contact &nbsp; [Contact]</div>
+                        </div>
+                    </div>
+
+                    <div class="grid-vizual" style="border-color:#00695C">
+                        <div class="gv-title" style="background:#00695C">Tablet/Mobitel &mdash; grid-template-columns: 1fr</div>
+                        <div class="gv-body" style="grid-template-columns:1fr">
+                            <div class="gv-col" style="background:#e0f2f1; border:none; text-align:center">LOGO</div>
+                        </div>
+                        <div class="gv-body" style="grid-template-columns:repeat(4,1fr); border-top:2px dashed #80CBC4">
+                            <div class="gv-col" style="background:#e0f2f1; font-size:0.7rem">About</div>
+                            <div class="gv-col" style="background:#e0f2f1; font-size:0.7rem">Services</div>
+                            <div class="gv-col" style="background:#e0f2f1; font-size:0.7rem">Contact</div>
+                            <div class="gv-col" style="background:#e0f2f1; font-size:0.7rem">[Contact]</div>
+                        </div>
+                        <div class="gv-code">justify-content: center &bull; flex-wrap: wrap</div>
+                    </div>
+                </div>
+                <div class="col">
+                    <p>Dodaj unutar <code>@media (max-width: 768px)</code> bloka:</p>
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>@media (max-width: 768px) {
+
+    /* Navigacija: 1 kolona umjesto 2 */
+    .navigacija {
+        grid-template-columns: 1fr;
+        padding: 15px 20px;
+        text-align: center;
+    }
+
+    /* Linkovi: centriranje i prelom u novi red */
+    .nav-linkovi {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+}</code></pre>
+                    </div>
+                    <div class="info-box" style="margin-top:10px">
+                        <h4>Što radi <code>flex-wrap: wrap</code>?</h4>
+                        <p>Na malim zaslonima, ako nema mjesta za sve linkove u jednom redu, Flexbox ih automatski prelama u sljedeći red. Bez <code>flex-wrap</code>, svi ostaju u jednom redu i izlaze van ekrana.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="provjera">
+                <h4>&#10003; Provjera &mdash; Sat 5 završen</h4>
+                <p>Otvori DevTools (F12) i smanji širinu prozora ispod 768px. Navigacija se treba složiti vertikalno: logo gore, linkovi ispod centrirani.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SAT 6 ===================== -->
+    <section id="sat6" class="tut-section">
+        <div class="section-header sat6-header">
+            <div>
+                <h2>SAT 6 &mdash; Responzivni Grid i završno testiranje</h2>
+                <p>Trajanje: 40 minuta &bull; Tema: auto-fit, minmax(), tipografija, DevTools</p>
+            </div>
+            <div class="ciljevi-chip">auto-fit &bull; minmax() &bull; clamp()</div>
+        </div>
+
+        <!-- 6.1 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat6-boja">6.1</span>
+                <h3>Responzivna hero sekcija i tipografija</h3>
+                <span class="vrijeme-chip">8 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Na malim zaslonima naslovi su preveliki, a sekcija previsoka. Smanjujemo <code>font-size</code> i <code>padding</code>:</p>
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>@media (max-width: 768px) {
+
+    /* (Ovdje su već navigacijski stilovi) */
+
+    .hero {
+        min-height: 300px;
+        padding: 40px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+
+    .usluge { padding: 50px 20px; }
+    .o-nama  { padding: 50px 20px; }
+}
+
+@media (max-width: 480px) {
+
+    .hero h1 { font-size: 2rem; }
+
+}</code></pre>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="info-box">
+                        <h4>Napredni tip: <code>clamp()</code></h4>
+                        <p>Umjesto media queryja samo za font, možeš koristiti <code>clamp()</code> koji automatski skalira vrijednost:</p>
+                        <div class="code-block" style="margin:8px 0">
+                            <div class="code-lang css-lang">CSS</div>
+                            <pre><code>.hero h1 {
+    /* min, preferred, max */
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}</code></pre>
+                        </div>
+                        <p style="font-size:0.82rem">Čita se: <em>"font ne manji od 2rem, ne veći od 3.5rem, idealno 5% širine prozora"</em>. Nema potrebe za media queryjem!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6.2 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat6-boja">6.2</span>
+                <h3>Responzivne kartice &mdash; <code>auto-fit</code> i <code>minmax()</code></h3>
+                <span class="vrijeme-chip">15 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Imamo dvije mogućnosti za responzivne kartice:</p>
+
+                    <div class="concept-box">
+                        <h4>Pristup A: Media queries (ručno)</h4>
+                        <div class="code-block">
+                            <div class="code-lang css-lang">CSS</div>
+                            <pre><code>/* Desktop: 3 kolone */
+.usluge-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Tablet: 2 kolone */
+@media (max-width: 768px) {
+    .usluge-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobitel: 1 kolona */
+@media (max-width: 480px) {
+    .usluge-grid {
+        grid-template-columns: 1fr;
+    }
+}</code></pre>
+                        </div>
+                        <p style="font-size:0.82rem; margin-top:8px">&#8594; Funkcionira, ali mora se pisati za svaki breakpoint.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="concept-box" style="border-color:#00695C; background:#e0f2f1">
+                        <h4 style="color:#00695C">&#9733; Pristup B: <code>auto-fit</code> + <code>minmax()</code> (elegantniji)</h4>
+                        <div class="code-block">
+                            <div class="code-lang css-lang">CSS</div>
+                            <pre><code>/* Desktop, tablet i mobitel — automatski! */
+.usluge-grid {
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+}</code></pre>
+                        </div>
+                        <p style="font-size:0.82rem; margin-top:8px">&#8594; Nema media querija. Grid <em>sam</em> odlučuje koliko kolona stane.</p>
+                    </div>
+
+                    <div class="info-box" style="margin-top:12px">
+                        <h4>Kako radi <code>repeat(auto-fit, minmax(250px, 1fr))</code>?</h4>
+                        <table class="small-table">
+                            <tr><td><code>auto-fit</code></td><td>Gradi onoliko kolona koliko stane</td></tr>
+                            <tr><td><code>minmax(250px, 1fr)</code></td><td>Svaka kolona: min 250px, max sav slobodni prostor</td></tr>
+                        </table>
+                        <p style="font-size:0.82rem; margin-top:8px">Na zaslonu 900px &rarr; 3 kolone &times; 250px = 750px &rarr; stanu 3.<br>Na zaslonu 550px &rarr; 2 kolone &times; 250px = 500px &rarr; stanu 2.<br>Na zaslonu 300px &rarr; 1 kolona.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="napomena">
+                <strong>U ovom tutorijalu koristimo Pristup A</strong> (media queries) jer je korak-po-korak pregledniji za učenje. Pristup B je elegantniji i preporuča se u praksi.
+            </div>
+        </div>
+
+        <!-- 6.3 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat6-boja">6.3</span>
+                <h3>Responzivne dvostupčane sekcije</h3>
+                <span class="vrijeme-chip">12 min</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Sekcije <em>Recenzije</em> i <em>O nama</em> imaju <code>grid-template-columns: 1fr 1fr</code>. Na tabletu prelazimo na <strong>jednu kolonu</strong> — sadržaj se složi jedan ispod drugog.</p>
+                    <div class="grid-vizual" style="border-color:#00695C">
+                        <div class="gv-title" style="background:#00695C">Tablet/Mobitel &mdash; 1 kolona</div>
+                        <div class="gv-body" style="grid-template-columns:1fr">
+                            <div class="gv-col" style="background:#e0f2f1; border:none">Lijeva kolona (sad puna širina)</div>
+                        </div>
+                        <div class="gv-body" style="grid-template-columns:1fr; border-top:2px dashed #80CBC4">
+                            <div class="gv-col" style="background:#e0f2f1; border:none">Desna kolona (sad puna širina)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <p>Dodaj unutar <code>@media (max-width: 768px)</code>:</p>
+                    <div class="code-block">
+                        <div class="code-lang css-lang">CSS</div>
+                        <pre><code>@media (max-width: 768px) {
+
+    /* (navigacija i hero stilovi gore) */
+
+    /* Kartice usluga: 2 kolone */
+    .usluge-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Recenzije: 1 kolona */
+    .recenzije {
+        grid-template-columns: 1fr;
+    }
+
+    .recenzija-lijevo,
+    .recenzija-desno {
+        padding: 30px 20px;
+    }
+
+    /* O nama: 1 kolona */
+    .o-nama {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    /* (hero stilovi gore) */
+
+    /* Kartice: 1 kolona */
+    .usluge-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Forma: redovi umjesto stupca */
+    .kontakt-forma {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .kontakt-forma input  { width: 100%; }
+    .kontakt-forma button { width: 100%; }
+
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6.4 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat6-boja">6.4</span>
+                <h3>Kompletni media queries &mdash; konačni kod</h3>
+                <span class="vrijeme-chip">10 min</span>
+            </div>
+            <p>Ovako izgleda cijeli <code>@media</code> blok koji dodajemo <strong>na dno</strong> datoteke <code>style.css</code>:</p>
+            <div class="code-block">
+                <div class="code-lang css-lang">CSS</div>
+                <pre><code>/* ========================================================
+   RESPONZIVNOST
+   ======================================================== */
+
+/* ---- Tablet i manji (≤ 768px) ---- */
+@media (max-width: 768px) {
+
+    .navigacija {
+        grid-template-columns: 1fr;
+        padding: 15px 20px;
+        text-align: center;
+    }
+
+    .nav-linkovi {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .hero {
+        min-height: 300px;
+        padding: 40px 20px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+
+    .usluge       { padding: 50px 20px; }
+    .usluge-grid  { grid-template-columns: repeat(2, 1fr); }
+
+    .recenzije    { grid-template-columns: 1fr; }
+
+    .recenzija-lijevo,
+    .recenzija-desno {
+        padding: 30px 20px;
+    }
+
+    .o-nama {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 50px 20px;
+    }
+}
+
+/* ---- Mobitel (≤ 480px) ---- */
+@media (max-width: 480px) {
+
+    .hero h1    { font-size: 2rem; }
+
+    .usluge-grid { grid-template-columns: 1fr; }
+
+    .kontakt-forma {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .kontakt-forma input,
+    .kontakt-forma button {
+        width: 100%;
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- 6.5 -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj sat6-boja">6.5</span>
+                <h3>Završno testiranje u DevToolsu</h3>
+                <span class="vrijeme-chip">5 min</span>
+            </div>
+            <div class="zadatak-box">
+                <h4>&#9989; Checklista za testiranje</h4>
+                <p>Otvori gotovu stranicu u browseru, pritisni <strong>F12</strong> i provjeri svaki uređaj:</p>
+                <table class="small-table" style="margin-top:12px">
+                    <thead><tr><th>Širina</th><th>Što provjeri</th><th>Očekivano</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>1200px+</strong></td><td>Desktop izgled</td><td>Nav 2 stupca, 3 kartice, 2-stupčane sekcije</td></tr>
+                        <tr><td><strong>768px</strong></td><td>Tablet breakpoint</td><td>Nav se slaže vertikalno, kartice 2 stupca, sekcije 1 stupac</td></tr>
+                        <tr><td><strong>480px</strong></td><td>Mobitel breakpoint</td><td>Kartice 1 stupac, forma u stupcu</td></tr>
+                        <tr><td><strong>375px</strong> (iPhone)</td><td>Realni mobitel</td><td>Ništa ne izlazi van ekrana</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="provjera uspjeh">
+                <h4>&#127881; Tutorial potpuno završen!</h4>
+                <p>Izgradio si kompletnu responzivnu web stranicu po wireframe-u koristeći HTML5, CSS Grid, Flexbox i Media Queries. Provjeri gotovo rješenje u mapi <strong>rjesenje/</strong>.</p>
+            </div>
+        </div>
+
+        <!-- Sažetak responzivnosti -->
+        <div class="korak">
+            <div class="korak-header">
+                <span class="korak-broj" style="background:#555">&#9733;</span>
+                <h3>Sažetak &mdash; responzivnost</h3>
+                <span class="vrijeme-chip">Referenca</span>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="summary-box" style="background:#e0f2f1; border:1px solid #80CBC4">
+                        <h4 style="color:#00695C">Media Queries</h4>
+                        <table class="small-table">
+                            <tr><td><code>@media (max-width: 768px)</code></td><td>tablet i manji</td></tr>
+                            <tr><td><code>@media (max-width: 480px)</code></td><td>mobitel</td></tr>
+                            <tr><td><code>grid-template-columns: 1fr</code></td><td>1 stupac (full width)</td></tr>
+                            <tr><td><code>flex-wrap: wrap</code></td><td>prelom u novi red</td></tr>
+                            <tr><td><code>flex-direction: column</code></td><td>redovi &rarr; stupci</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="summary-box" style="background:#fff8e1; border:1px solid #FFD54F">
+                        <h4 style="color:#E65100">Napredne tehnike</h4>
+                        <table class="small-table">
+                            <tr><td><code>repeat(auto-fit, minmax(250px, 1fr))</code></td><td>automatski responzivan Grid</td></tr>
+                            <tr><td><code>clamp(2rem, 5vw, 3.5rem)</code></td><td>fluidna tipografija</td></tr>
+                            <tr><td><code>object-fit: cover</code></td><td>slike bez izobličenja</td></tr>
+                            <tr><td><code>width: 100%</code> na <code>img</code></td><td>responzivne slike</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div class="tut-footer">
+    <p>Tutorial: Kreiranje web stranice po wireframe-u &mdash; HTML5 &bull; CSS Grid &bull; Flexbox &bull; 4 &times; 40 min</p>
+</div>
 
 </body>
 </html>
